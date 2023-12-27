@@ -1,12 +1,12 @@
-#Анотация к решенной задаче
+#Annotation to the solved problem
 
-Для запуска понадобится запустить свой node js сервер на каком-нибудь vps сервере. Небольшая инструкция по установке и готовый код лежат в этом репозитории: https://github.com/lopata29435/little-node-js-server/tree/main
+You will need to run your node js server on some vps server. Small installation instructions and ready code can be found in this repository: https://github.com/lopata29435/little-node-js-server/tree/main.
 
-Расширение отправляет http запрос на сервер по порту 3000, который мы указали в коде нашего сервера. По этому адресу сервера находится json файл:
+The extension sends http request to the server on port 3000, which we specified in our server code. A json file is located at this server address:
 ```json
 {
-    "message": "Привет от сервера"
+    "``message'': ``Hello from the server''
 }
 ```
 
-После этого наше расширение в соответствующем окне выведет статус подключения к нашему серверу.
+After that our extension will display the status of connection to our server in the corresponding window.
