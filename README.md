@@ -5,7 +5,7 @@ You will need to run your node js server on some vps server. Small installation 
 The extension sends http request to the server on port 3000, which we specified in our server code. A json file is located at this server address:
 ```json
 {
-    "``message'': ``Hello from the server''
+    "message": "Hello from the server"
 }
 ```
 
