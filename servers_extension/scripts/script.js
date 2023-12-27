@@ -1,50 +1,19 @@
-const postBtn = document.querySelector("#post_btn");
+document.getElementById("checkConnection").addEventListener("click", function() {
+    if (chrome.runtime.connect) {
+      chrome.runtime.sendMessage({ action: "checkConnection" }, function(response) {
+        displayServerResponse(response);
+      });
+    } else {
+      console.error("No connection to the background script has been established.");
+    }
+  });
+  
+  function displayServerResponse(response) {
+    var serverResponseElement = document.getElementById("serverResponse");
 
-function getCookie(name) {
-  let cookieValue = null;
-  if (document.cookie && document.cookie !== '') {
-      const cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-          const cookie = cookies[i].trim();
-          if (cookie.substring(0, name.length + 1) === (name + '=')) {
-              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-              break;
-          }
-      }
+    if (response && response.status === "success") {
+      serverResponseElement.textContent = "Server response: " + response.message;
+    } else {
+      serverResponseElement.textContent = "An error occurred while accessing the server.";
+    }
   }
-  return cookieValue;
-}
-
-function postBtnHandler() {
-    // Используйте let или const для объявления переменных
-    let text = document.querySelector("#text").value;
-
-    let url = 'http://127.0.0.1:8000/myapp/api/endpoint/';
-    const csrftoken = getCookie('csrftoken');
-
-    let data = { text_data: text };
-
-    var options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-        },
-        body: JSON.stringify(data)
-    };
-
-    fetch(url, options).then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        alert('POST request successful');  // Исправлена опечатка в слове "alert"
-        return response.json();
-    }).then(() => {
-        // Очищаем поле ввода после успешной отправки запроса
-        document.getElementById('text').value = '';
-    }).catch(error => {
-        alert('POST request failed');
-    });
-}
-
-postBtn.addEventListener('click', postBtnHandler);
